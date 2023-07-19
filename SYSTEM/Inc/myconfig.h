@@ -32,34 +32,34 @@
 #include  "pid.h"
 #include 	"sys.h"
 #include "OLED.h"
-/* ¶¨Òå -----------------------------------------------------------------------------------------------------------------*/
+/* å®šä¹‰ -----------------------------------------------------------------------------------------------------------------*/
 
-//±àÂëÆ÷µÄÎïÀí·Ö±æÂÊ£¬ÏßÊý
+//ç¼–ç å™¨çš„ç‰©ç†åˆ†è¾¨çŽ‡ï¼Œçº¿æ•°
 #define RESOLUTION  13
 
-//¾­¹ý±¶ÆµÖ®ºóµÄ·Ö±æÂÊ 
+//ç»è¿‡å€é¢‘ä¹‹åŽçš„åˆ†è¾¨çŽ‡ 
 #define RESOLUTION_TOTAL  13*4
 
-//¼õËÙµç»úµÄ¼õËÙ±È
+//å‡é€Ÿç”µæœºçš„å‡é€Ÿæ¯”
 #define REDUCTION_RATIO  30
 
-//ÂÖÌ¥°ë¾¶
+//è½®èƒŽåŠå¾„
 #define WHEEL_R    3.25
 
-//³µ³¤
+//è½¦é•¿
 #define CAR_LENGTH    25
 
-//×ÔÐý90µÄ¾àÀë
+//è‡ªæ—‹90çš„è·ç¦»
 #define SPIN_90_DISTANCE    0.25*3.14*9
 
-//Á©ÂÖ¾àÀë
+//ä¿©è½®è·ç¦»
 #define TWO_WHEEL_DISTANCE     18
 
-//µç»úµÄ×î´ó×ªËÙ
-#define MOTOR_SPEED_MAX  160  //µ¥Î»160rpm£¬1sÄÜÅÜµÄ×î´ó¾àÀë53cm
+//ç”µæœºçš„æœ€å¤§è½¬é€Ÿ
+#define MOTOR_SPEED_MAX  160  //å•ä½160rpmï¼Œ1sèƒ½è·‘çš„æœ€å¤§è·ç¦»53cm
 
-//PIDµÄ¼ÆËãÖÜÆÚ
-#define PID_COMPUTATION_PERIOD  10//µ¥Î»ÊÇms
+//PIDçš„è®¡ç®—å‘¨æœŸ
+#define PID_COMPUTATION_PERIOD  10//å•ä½æ˜¯ms
 
 typedef struct
 {
@@ -95,7 +95,7 @@ typedef enum
 }SpinDIR_Choose;
 
 
-/* Ìá¹©¸øÆäËûCÎÄ¼þµ÷ÓÃµÄº¯Êý --------------------------------------------------------------------------------------------*/
+/* æä¾›ç»™å…¶ä»–Cæ–‡ä»¶è°ƒç”¨çš„å‡½æ•° --------------------------------------------------------------------------------------------*/
 extern Param_InitTypeDef Param;
 extern Flag_InitTypeDef  Flag;
 
