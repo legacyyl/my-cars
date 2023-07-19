@@ -22,6 +22,6 @@ void Usart_Printf(char *format,...);
 uint8_t Usart_GetRxFlag(void);
 uint8_t Usart_GetRxData(void);
 
-uint8_t Get_id_Flag(void);//½«»ñÈ¡id_Flag·â×°³Éº¯Êı
-float RxPacket_Data_Handle(void);//Êı¾İ°ü»»Ëã´¦Àí
+uint8_t Get_id_Flag(void);//å°†è·å–id_Flagå°è£…æˆå‡½æ•°
+float RxPacket_Data_Handle(void);//æ•°æ®åŒ…æ¢ç®—å¤„ç†
 #endif
