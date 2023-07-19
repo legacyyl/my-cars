@@ -1,12 +1,7 @@
 #include "encoder.h"
 
 
-/**
- * 函数名:TIM2_Encoder_Init
- * 描述:定时器2编码器配置
- * 输入:无
- * 输出:无
- */
+
 void TIM2_Encoder_Init(void)
 {
  	GPIO_InitTypeDef 					GPIO_InitStructure;

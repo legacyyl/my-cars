@@ -1,35 +1,27 @@
-/**
-  *************************************************************************************************************************
-  * @file    usart1.h
-  * @author  amkl
-  * @version V1.0
-  * @date    2022-09-22
-  * @brief   串口1.h文件配置
-  *************************************************************************************************************************
-  * @attention
-  * 
-  * 
-  * 
-  *************************************************************************************************************************
-  */
+#ifndef __USART_H
+#define __USART_H
+#include "stm32f10x.h"                  // Device header
+#include <stdarg.h>
+#include <stdio.h>
 
+#define USART_RCC  RCC_APB2Periph_USART1
+#define USART_GPIO_RCC RCC_APB2Periph_GPIOA
+#define USART_GPIO GPIOA
+#define USART_X    USART1
+#define USART_IRQn USART1_IRQn
+#define USART_IRQHandler USART_IRQHandler
+#define USART_TX   GPIO_Pin_9
+#define USART_RX   GPIO_Pin_10
 
-/* Define to prevent recursive inclusion --------------------------------------------------------------------------------*/
-#ifndef __USART1_H
-#define	__USART1_H
+void Usart_Init(void);
+void Send_Byte(uint8_t Byte);
+void Send_Array(uint8_t *Array,uint16_t Length);
+void Send_String(char*String);
+void Send_Number(uint32_t Num,uint8_t Length);
+void Usart_Printf(char *format,...);
+uint8_t Usart_GetRxFlag(void);
+uint8_t Usart_GetRxData(void);
 
-/* Includes -------------------------------------------------------------------------------------------------------------*/
-#include "stm32f10x.h"
-
-/* 定义 -----------------------------------------------------------------------------------------------------------------*/
-
-/* 提供给其他C文件调用的函数 --------------------------------------------------------------------------------------------*/
-void Usart1_Init(u32 Bound);
-int _isatty(int fd);
-int _write(int fd, char *ptr, int len);
-int _close(int fd);
-int _lseek(int fd, int ptr, int dir);
-int _read(int fd, char *ptr, int len);
-#endif /* __USART1_H */
-
-/*****************************************************END OF FILE*********************************************************/	
+uint8_t Get_id_Flag(void);//将获取id_Flag封装成函数
+float RxPacket_Data_Handle(void);//数据包换算处理
+#endif

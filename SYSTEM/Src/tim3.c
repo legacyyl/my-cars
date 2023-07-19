@@ -32,8 +32,8 @@ void Tim3_Init(void)
 	
 	NVIC_InitStructure.NVIC_IRQChannel=TIM3_IRQn;
 	NVIC_InitStructure.NVIC_IRQChannelCmd=ENABLE;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=0;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority=0;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=1;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority=1;
 	NVIC_Init(&NVIC_InitStructure);
 	
 	TIM_TimeBaseInitStructure.TIM_Prescaler=72-1;
