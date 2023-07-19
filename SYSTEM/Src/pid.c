@@ -4,7 +4,7 @@
   * @author  amkl
   * @version V1.0
   * @date    2022-09-22
-  * @brief   pidËã·¨.cÎÄ¼şÅäÖÃ
+  * @brief   pidç®—æ³•.cæ–‡ä»¶é…ç½®
   *************************************************************************************************************************
   * @attention
   *
@@ -14,18 +14,18 @@
 
 /* Includes -------------------------------------------------------------------------------------------------------------*/
 #include "pid.h"
-/* ¶¨Òå -----------------------------------------------------------------------------------------------------------------*/
+/* å®šä¹‰ -----------------------------------------------------------------------------------------------------------------*/
 PID_InitTypedef PID;
 
 /**
- * º¯ÊıÃû:PID_Param_Init
- * ÃèÊö:PID²ÎÊı³õÊ¼
- * ÊäÈë:ÎŞ
- * Êä³ö:ÎŞ
+ * å‡½æ•°å:PID_Param_Init
+ * æè¿°:PIDå‚æ•°åˆå§‹
+ * è¾“å…¥:æ— 
+ * è¾“å‡º:æ— 
  */
 void  PID_Param_Init(void)
 {
-  /*Î»ÖÃ»·µÄPID*/
+  /*ä½ç½®ç¯çš„PID*/
 	PID.Location_Target_Val=0.0;
 	PID.Location_Actual_Val=0.0;
 	PID.Location_Kp=0.24;
@@ -36,7 +36,7 @@ void  PID_Param_Init(void)
 	PID.Location_ErrorLast=0.0;
 	PID.Location_Out=0;
 	
-	/*ËÙ¶È»·µÄPID*/
+	/*é€Ÿåº¦ç¯çš„PID*/
 	PID.Velocity_Target_Val=0.0;
 	PID.Velocity_Actual_Val=0.0;
 	PID.Velocity_Kp=5.0;
@@ -49,49 +49,49 @@ void  PID_Param_Init(void)
 }
 
 /**
- * º¯ÊıÃû:LocationRing_PID_Realize
- * ÃèÊö:Î»ÖÃ»·PIDµÄÊµÏÖ
- * ÊäÈë:Location_Actual_Val:²âÁ¿µ½µÄÊµ¼ÊÖµ
- * Êä³ö:Î»ÖÃ»·PIDµÄÊä³öÖµ
+ * å‡½æ•°å:LocationRing_PID_Realize
+ * æè¿°:ä½ç½®ç¯PIDçš„å®ç°
+ * è¾“å…¥:Location_Actual_Val:æµ‹é‡åˆ°çš„å®é™…å€¼
+ * è¾“å‡º:ä½ç½®ç¯PIDçš„è¾“å‡ºå€¼
  */
 float LocationRing_PID_Realize(float Location_Actual_Val)
 { 
-  //1.¼ÆËãÆ«²î
+  //1.è®¡ç®—åå·®
 	PID.Location_Error=PID.Location_Target_Val-Location_Actual_Val;
-	//2.ÀÛ¼ÆÆ«²î
+	//2.ç´¯è®¡åå·®
 	PID.Location_Integral+=PID.Location_Error;
-	//3.PIDËã·¨ÊµÏÖ
+	//3.PIDç®—æ³•å®ç°
 	PID.Location_Actual_Val=PID.Location_Kp*PID.Location_Error+PID.Location_Ki*PID.Location_Integral+PID.Location_Kd*(PID.Location_Error-PID.Location_ErrorLast);
-	//4.Æ«²îµÄ´«µİ
+	//4.åå·®çš„ä¼ é€’
 	PID.Location_ErrorLast=PID.Location_Error;
-	//5.·µ»ØÎ»ÖÃ»·¼ÆËãµÃµ½µÄÊä³öÖµ
+	//5.è¿”å›ä½ç½®ç¯è®¡ç®—å¾—åˆ°çš„è¾“å‡ºå€¼
 	return PID.Location_Actual_Val;  
 }
 
 /**
- * º¯ÊıÃû:LocationRing_PID_Realize
- * ÃèÊö:ËÙ¶È»·PIDµÄÊµÏÖ
- * ÊäÈë:Location_Actual_Val:²âÁ¿µ½µÄÊµ¼ÊÖµ
- * Êä³ö:ËÙ¶È»·PIDµÄÊä³öÖµ
+ * å‡½æ•°å:LocationRing_PID_Realize
+ * æè¿°:é€Ÿåº¦ç¯PIDçš„å®ç°
+ * è¾“å…¥:Location_Actual_Val:æµ‹é‡åˆ°çš„å®é™…å€¼
+ * è¾“å‡º:é€Ÿåº¦ç¯PIDçš„è¾“å‡ºå€¼
  */
 float VelocityRing_PID_Realize(float Velocity_Actual_Val)
 { 
-  //1.¼ÆËãÆ«²î
+  //1.è®¡ç®—åå·®
 	PID.Velocity_Error=PID.Velocity_Target_Val-Velocity_Actual_Val;
-	//2.Ïû³ı»úĞµÎó²î
+	//2.æ¶ˆé™¤æœºæ¢°è¯¯å·®
 	if((PID.Velocity_Error<0.5f)&&(PID.Velocity_Error>-0.5f))
 	{
 	 PID.Velocity_Error=0.0f;
 	}
-	//3.ÀÛ¼ÆÆ«²î
+	//3.ç´¯è®¡åå·®
 	PID.Velocity_Integral+=PID.Velocity_Error;
-	//4.»ı·ÖÏŞ·ù (ÏŞ·ùÖµµÄÈ·¶¨:PWM_MAX¡ÂPID.Velocity_Ki)
+	//4.ç§¯åˆ†é™å¹… (é™å¹…å€¼çš„ç¡®å®š:PWM_MAXÃ·PID.Velocity_Ki)
 	PID.Velocity_Integral=(PID.Velocity_Integral>10000)?PID.Velocity_Integral=10000:((PID.Velocity_Integral<-10000)?PID.Velocity_Integral=-10000:PID.Velocity_Integral);
-	//5.PIDËã·¨ÊµÏÖ
+	//5.PIDç®—æ³•å®ç°
 	PID.Velocity_Actual_Val=PID.Velocity_Kp*PID.Velocity_Error+PID.Velocity_Ki*PID.Velocity_Integral+PID.Velocity_Kd*(PID.Velocity_Error-PID.Velocity_ErrorLast);
-	//6.Æ«²îµÄ´«µİ
+	//6.åå·®çš„ä¼ é€’
 	PID.Velocity_ErrorLast=PID.Velocity_Error;
-	//7.·µ»ØËÙ¶È»·¼ÆËãµÃµ½µÄÊä³öÖµ
+	//7.è¿”å›é€Ÿåº¦ç¯è®¡ç®—å¾—åˆ°çš„è¾“å‡ºå€¼
 	return PID.Velocity_Actual_Val;  
 }
 

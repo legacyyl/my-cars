@@ -4,7 +4,7 @@
   * @author  amkl
   * @version V1.0
   * @date    2022-09-22
-  * @brief   tb6612Ä£¿é.cÎÄ¼þÅäÖÃ
+  * @brief   tb6612æ¨¡å—.cæ–‡ä»¶é…ç½®
   *************************************************************************************************************************
   * @attention
   *
@@ -15,14 +15,14 @@
 /* Includes -------------------------------------------------------------------------------------------------------------*/
 #include "motor.h"
 #include "myconfig.h"
-/* ¶¨Òå -----------------------------------------------------------------------------------------------------------------*/
+/* å®šä¹‰ -----------------------------------------------------------------------------------------------------------------*/
 
 
 /**
- * º¯ÊýÃû:Motor_GPIO_Init
- * ÃèÊö:µç»ú¶ÔÓ¦GPIOÒý½Å³õÊ¼»¯
- * ÊäÈë:ÎÞ
- * Êä³ö:ÎÞ
+ * å‡½æ•°å:Motor_GPIO_Init
+ * æè¿°:ç”µæœºå¯¹åº”GPIOå¼•è„šåˆå§‹åŒ–
+ * è¾“å…¥:æ— 
+ * è¾“å‡º:æ— 
  */
 void Motor_GPIO_Init(void)
 {
@@ -37,10 +37,10 @@ void Motor_GPIO_Init(void)
 
 
 /**
- * º¯ÊýÃû:Motor_Left_DIR
- * ÃèÊö:×óÂÖµç»ú¿ØÖÆº¯Êý
- * ÊäÈë:Direction=(FORWARD,BACK,STOP)
- * Êä³ö:ÎÞ
+ * å‡½æ•°å:Motor_Left_DIR
+ * æè¿°:å·¦è½®ç”µæœºæŽ§åˆ¶å‡½æ•°
+ * è¾“å…¥:Direction=(FORWARD,BACK,STOP)
+ * è¾“å‡º:æ— 
  */
 void Motor_Left_DIR(MotorDIR_Choose Direction)
 {
@@ -62,10 +62,10 @@ void Motor_Left_DIR(MotorDIR_Choose Direction)
 }
 
 /**
- * º¯ÊýÃû:Motor_Right_DIR
- * ÃèÊö:ÓÒÂÖµç»ú¿ØÖÆº¯Êý
- * ÊäÈë:Direction=(FORWARD,BACK,STOP)
- * Êä³ö:ÎÞ
+ * å‡½æ•°å:Motor_Right_DIR
+ * æè¿°:å³è½®ç”µæœºæŽ§åˆ¶å‡½æ•°
+ * è¾“å…¥:Direction=(FORWARD,BACK,STOP)
+ * è¾“å‡º:æ— 
  */
 void Motor_Right_DIR(MotorDIR_Choose Direction)
 {
@@ -87,10 +87,10 @@ void Motor_Right_DIR(MotorDIR_Choose Direction)
 }
 
 /**
- * º¯ÊýÃû:Load_Motor_PWM
- * ÃèÊö:¸üÐÂPWM,²¢½«ÆäÐ´¶¨Ê±Æ÷
- * ÊäÈë:MOTOR1_PWM-×óÂÖµç»ú¼ÆËãµÃ³öµÄPWMÖµ£¬MOTOR2_PWM-ÓÒÂÖµç»ú¼ÆËãµÃ³öµÄPWMÖµ
- * Êä³ö:ÎÞ
+ * å‡½æ•°å:Load_Motor_PWM
+ * æè¿°:æ›´æ–°PWM,å¹¶å°†å…¶å†™å®šæ—¶å™¨
+ * è¾“å…¥:MOTOR1_PWM-å·¦è½®ç”µæœºè®¡ç®—å¾—å‡ºçš„PWMå€¼ï¼ŒMOTOR2_PWM-å³è½®ç”µæœºè®¡ç®—å¾—å‡ºçš„PWMå€¼
+ * è¾“å‡º:æ— 
  */
 void Load_Motor_PWM(int MOTOR1_PWM,int MOTOR2_PWM)
 {
@@ -106,10 +106,10 @@ void Load_Motor_PWM(int MOTOR1_PWM,int MOTOR2_PWM)
 
 
 /**
- * º¯ÊýÃû:set_motor_enable
- * ÃèÊö:Ê¹ÄÜµç»ú
- * ÊäÈë:ÎÞ
- * Êä³ö:ÎÞ
+ * å‡½æ•°å:set_motor_enable
+ * æè¿°:ä½¿èƒ½ç”µæœº
+ * è¾“å…¥:æ— 
+ * è¾“å‡º:æ— 
  */
 void set_motor_enable(void)
 {
@@ -119,10 +119,10 @@ void set_motor_enable(void)
 }
 
 /**
- * º¯ÊýÃû:set_motor_disable
- * ÃèÊö:Ê§ÄÜµç»ú
- * ÊäÈë:ÎÞ
- * Êä³ö:ÎÞ
+ * å‡½æ•°å:set_motor_disable
+ * æè¿°:å¤±èƒ½ç”µæœº
+ * è¾“å…¥:æ— 
+ * è¾“å‡º:æ— 
  */
 void set_motor_disable(void)
 {

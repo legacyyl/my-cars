@@ -4,7 +4,7 @@
   * @author  amkl
   * @version V1.0
   * @date    2022-09-22
-  * @brief   pidËã·¨.hÎÄ¼şÅäÖÃ
+  * @brief   pidç®—æ³•.hæ–‡ä»¶é…ç½®
   *************************************************************************************************************************
   * @attention
   * 
@@ -21,34 +21,34 @@
 /* Includes -------------------------------------------------------------------------------------------------------------*/
 #include "stm32f10x.h"
 
-/* ¶¨Òå -----------------------------------------------------------------------------------------------------------------*/
+/* å®šä¹‰ -----------------------------------------------------------------------------------------------------------------*/
 typedef struct
 {
-  float Location_Kp;//Î»ÖÃ»·µÄKp
-	float Location_Ki;//Î»ÖÃ»·µÄKi
-	float Location_Kd;//Î»ÖÃ»·µÄKd
-	float Location_Error;//Î»ÖÃ»·µÄÆ«²î
-	float Location_ErrorLast;//Î»ÖÃ»·µÄÉÏÒ»´ÎÆ«²î
-	float Location_Integral;//Î»ÖÃ»·µÄ»ı·ÖÖµ
-	float Location_Target_Val;//Î»ÖÃ»·µÄÆÚÍûÖµ
-	float Location_Actual_Val;//Î»ÖÃ»·µÄÊµ¼ÊÖµ
-	int   Location_Out;//Î»ÖÃ»·µÄÊä³ö
+  float Location_Kp;//ä½ç½®ç¯çš„Kp
+	float Location_Ki;//ä½ç½®ç¯çš„Ki
+	float Location_Kd;//ä½ç½®ç¯çš„Kd
+	float Location_Error;//ä½ç½®ç¯çš„åå·®
+	float Location_ErrorLast;//ä½ç½®ç¯çš„ä¸Šä¸€æ¬¡åå·®
+	float Location_Integral;//ä½ç½®ç¯çš„ç§¯åˆ†å€¼
+	float Location_Target_Val;//ä½ç½®ç¯çš„æœŸæœ›å€¼
+	float Location_Actual_Val;//ä½ç½®ç¯çš„å®é™…å€¼
+	int   Location_Out;//ä½ç½®ç¯çš„è¾“å‡º
 
-	float Velocity_Kp;//ËÙ¶È»·µÄKp
-	float Velocity_Ki;//ËÙ¶È»·µÄKi
-	float Velocity_Kd;//ËÙ¶È»·µÄKd
-	float Velocity_Error;//ËÙ¶È»·µÄÆ«²î
-	float Velocity_ErrorLast;//ËÙ¶È»·µÄÉÏÒ»´ÎÆ«²î
-	float Velocity_Integral;//ËÙ¶È»·µÄ»ı·ÖÏî
-	float Velocity_Target_Val;//ËÙ¶È»·µÄÆÚÍûÖµ
-	float Velocity_Actual_Val;//ËÙ¶È»·µÄÊµ¼ÊÖµ
-	int   Velocity_Out;//ËÙ¶È»·µÄÊä³ö
+	float Velocity_Kp;//é€Ÿåº¦ç¯çš„Kp
+	float Velocity_Ki;//é€Ÿåº¦ç¯çš„Ki
+	float Velocity_Kd;//é€Ÿåº¦ç¯çš„Kd
+	float Velocity_Error;//é€Ÿåº¦ç¯çš„åå·®
+	float Velocity_ErrorLast;//é€Ÿåº¦ç¯çš„ä¸Šä¸€æ¬¡åå·®
+	float Velocity_Integral;//é€Ÿåº¦ç¯çš„ç§¯åˆ†é¡¹
+	float Velocity_Target_Val;//é€Ÿåº¦ç¯çš„æœŸæœ›å€¼
+	float Velocity_Actual_Val;//é€Ÿåº¦ç¯çš„å®é™…å€¼
+	int   Velocity_Out;//é€Ÿåº¦ç¯çš„è¾“å‡º
 	
 }PID_InitTypedef;
 
 
 
-/* Ìá¹©¸øÆäËûCÎÄ¼şµ÷ÓÃµÄº¯Êı --------------------------------------------------------------------------------------------*/
+/* æä¾›ç»™å…¶ä»–Cæ–‡ä»¶è°ƒç”¨çš„å‡½æ•° --------------------------------------------------------------------------------------------*/
 extern PID_InitTypedef PID;
 
 void  PID_Param_Init(void);

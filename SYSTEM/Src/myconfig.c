@@ -15,52 +15,52 @@
 /* Includes -------------------------------------------------------------------------------------------------------------*/
 #include "myconfig.h"
 
-/* ¶¨Òå -----------------------------------------------------------------------------------------------------------------*/
+/* å®šä¹‰ -----------------------------------------------------------------------------------------------------------------*/
 Param_InitTypeDef Param;
 Flag_InitTypeDef  Flag;
 
 /**
- * º¯ÊıÃû:LocationRing_Out
- * ÃèÊö:Î»ÖÃ»·µÄÊä³öº¯Êı
- * ÊäÈë:ÎŞ
- * Êä³ö:ËÙ¶È»·µÄÆÚÍûÖµ
+ * å‡½æ•°å:LocationRing_Out
+ * æè¿°:ä½ç½®ç¯çš„è¾“å‡ºå‡½æ•°
+ * è¾“å…¥:æ— 
+ * è¾“å‡º:é€Ÿåº¦ç¯çš„æœŸæœ›å€¼
  */
 float LocationRing_Out(void)
 {
  float ExpectVelocity=0.0;
 	
-	PID.Location_Actual_Val=Param.Sigma_Motor1Pluse;//½«ÀÛ¼ÆÂö³åÊı´«µİ¸øÎ»ÖÃ»·µÄÊµ¼ÊÖµ
+	PID.Location_Actual_Val=Param.Sigma_Motor1Pluse;//å°†ç´¯è®¡è„‰å†²æ•°ä¼ é€’ç»™ä½ç½®ç¯çš„å®é™…å€¼
 	
-	ExpectVelocity=LocationRing_PID_Realize(PID.Location_Actual_Val);//µÃµ½ÆÚÍûµÄËÙ¶È
+	ExpectVelocity=LocationRing_PID_Realize(PID.Location_Actual_Val);//å¾—åˆ°æœŸæœ›çš„é€Ÿåº¦
 	
-	ExpectVelocity=(ExpectVelocity>MOTOR_SPEED_MAX)?MOTOR_SPEED_MAX:(ExpectVelocity<-MOTOR_SPEED_MAX)?(-MOTOR_SPEED_MAX):ExpectVelocity;//½øĞĞµÄËÙ¶ÈÏŞ·ù
+	ExpectVelocity=(ExpectVelocity>MOTOR_SPEED_MAX)?MOTOR_SPEED_MAX:(ExpectVelocity<-MOTOR_SPEED_MAX)?(-MOTOR_SPEED_MAX):ExpectVelocity;//è¿›è¡Œçš„é€Ÿåº¦é™å¹…
 	
 	return ExpectVelocity;
 }
 
 /**
- * º¯ÊıÃû:VelocityRing_Out
- * ÃèÊö:ËÙ¶È»·µÄÊä³öº¯Êı
- * ÊäÈë:ÎŞ
- * Êä³ö:PWM
+ * å‡½æ•°å:VelocityRing_Out
+ * æè¿°:é€Ÿåº¦ç¯çš„è¾“å‡ºå‡½æ•°
+ * è¾“å…¥:æ— 
+ * è¾“å‡º:PWM
  */
 float VelocityRing_Out(void)
 {
   float EcpectPWM=0.0;
 
 	
-	PID.Velocity_Actual_Val=(Param.UnitTime_Motor1Pluse*225)/(RESOLUTION_TOTAL*REDUCTION_RATIO*PID_COMPUTATION_PERIOD*1000*60);//½«¶ÁÈ¡µ½µÄµ¥Î»Ê±¼äÄÚµÄÂö³åÊı×ªÎªµ¥Î»Îªrpm
+	PID.Velocity_Actual_Val=(Param.UnitTime_Motor1Pluse*225)/(RESOLUTION_TOTAL*REDUCTION_RATIO*PID_COMPUTATION_PERIOD*1000*60);//å°†è¯»å–åˆ°çš„å•ä½æ—¶é—´å†…çš„è„‰å†²æ•°è½¬ä¸ºå•ä½ä¸ºrpm
 	
-	EcpectPWM=VelocityRing_PID_Realize(PID.Velocity_Actual_Val);//µÃµ½ÁËÆÚÍûËÙ¶È
+	EcpectPWM=VelocityRing_PID_Realize(PID.Velocity_Actual_Val);//å¾—åˆ°äº†æœŸæœ›é€Ÿåº¦
 	
 	return EcpectPWM	;
 }	
 
 /**
- * º¯ÊıÃû:LocationRing_VelocityRing_Control
- * ÃèÊö:´®¼¶pidµÄ¿ØÖÆ
- * ÊäÈë:ÎŞ
- * Êä³ö:ÎŞ
+ * å‡½æ•°å:LocationRing_VelocityRing_Control
+ * æè¿°:ä¸²çº§pidçš„æ§åˆ¶
+ * è¾“å…¥:æ— 
+ * è¾“å‡º:æ— 
  */
 void LocationRing_VelocityRing_Control(void)
 {
@@ -70,10 +70,10 @@ void LocationRing_VelocityRing_Control(void)
 }
 
 /**
- * º¯ÊıÃû:Car_Tracking
- * ÃèÊö:Ö±ĞĞÑ²Ïß
- * ÊäÈë:ÎŞ
- * Êä³ö:ÎŞ
+ * å‡½æ•°å:Car_Tracking
+ * æè¿°:ç›´è¡Œå·¡çº¿
+ * è¾“å…¥:æ— 
+ * è¾“å‡º:æ— 
  */
 void Car_Tracking(uint16_t TargetDistance)
 {
@@ -87,21 +87,21 @@ void Car_Tracking(uint16_t TargetDistance)
 	Param.Sigma_Motor2Pluse=0;
 	Flag.Is_EnMOTOR=1;
 	
-	//1.½«Ä¿±ê¾àÀë¸³Öµ¸øÄ¿±ê¾àÀëãĞÖµ
+	//1.å°†ç›®æ ‡è·ç¦»èµ‹å€¼ç»™ç›®æ ‡è·ç¦»é˜ˆå€¼
   Param.Distance_TargetThreshold=TargetDistance;
 	
-	//2.½«Ä¿±ê¾àÀë×ª»¯ÎªÂö³åÊı ¾àÀë/ÖÜ³¤µÃµ½ĞèÒª×ªµÄÈ¦Êı¡ÁÒ»È¦ËùĞèµÄÂö³åÊı£¬µÃµ½ÁËÆÚÍûµÄÂö³åÊı
+	//2.å°†ç›®æ ‡è·ç¦»è½¬åŒ–ä¸ºè„‰å†²æ•° è·ç¦»/å‘¨é•¿å¾—åˆ°éœ€è¦è½¬çš„åœˆæ•°Ã—ä¸€åœˆæ‰€éœ€çš„è„‰å†²æ•°ï¼Œå¾—åˆ°äº†æœŸæœ›çš„è„‰å†²æ•°
 	PID.Location_Target_Val=((TargetDistance/(2*3.14*WHEEL_R))*(RESOLUTION_TOTAL*REDUCTION_RATIO));
 	
-	//3.Ê¹ÄÜµç»ú
+	//3.ä½¿èƒ½ç”µæœº
 	set_motor_enable();
 }
 
 /**
- * º¯ÊıÃû:Car_Spin
- * ÃèÊö:×ªÍä
- * ÊäÈë:Direction=(LEFT_90/RIGHT_90/SPIN_180)
- * Êä³ö:ÎŞ
+ * å‡½æ•°å:Car_Spin
+ * æè¿°:è½¬å¼¯
+ * è¾“å…¥:Direction=(LEFT_90/RIGHT_90/SPIN_180)
+ * è¾“å‡º:æ— 
  */
 void Car_Spin(SpinDIR_Choose Direction)
 {
@@ -137,10 +137,10 @@ void Car_Spin(SpinDIR_Choose Direction)
 }
 
 /**
- * º¯ÊıÃû:TIM3_IRQHandler
- * ÃèÊö:¶¨Ê±3ÖĞ¶Ï·şÎñº¯Êı-10ms¶¨Ê±»ù×¼
- * ÊäÈë:ÎŞ
- * Êä³ö:ÎŞ
+ * å‡½æ•°å:TIM3_IRQHandler
+ * æè¿°:å®šæ—¶3ä¸­æ–­æœåŠ¡å‡½æ•°-10mså®šæ—¶åŸºå‡†
+ * è¾“å…¥:æ— 
+ * è¾“å‡º:æ— 
  */
 void TIM3_IRQHandler(void)
 {
@@ -150,27 +150,27 @@ void TIM3_IRQHandler(void)
 	{
 	  TIM_ClearITPendingBit(TIM3,TIM_IT_Update);
 		
-		//1.»ñÈ¡µ¥Î»Ê±¼äÄÚÂö³åÊı
+		//1.è·å–å•ä½æ—¶é—´å†…è„‰å†²æ•°
 		Param.UnitTime_Motor1Pluse = -Read_Pluse(2);
 		Param.UnitTime_Motor2Pluse = Read_Pluse(4);
 		
-		//2.¸üĞÂÀÛ¼ÆÂö³åÊı
+		//2.æ›´æ–°ç´¯è®¡è„‰å†²æ•°
 		Param.Sigma_Motor1Pluse+=Param.UnitTime_Motor1Pluse;
 		Param.Sigma_Motor2Pluse+=Param.UnitTime_Motor2Pluse;
 		
-		//3.¸üĞÂĞ¡³µµ±Ç°µÄĞĞÊ»¾àÀë=(ÖÜÆÚÄÚÀÛ¼ÆÂö³å/((³µÂÖ×ßÒ»È¦²úÉúµÄÂö³åÊı)*(³µÂÖÖÜ³¤)))
+		//3.æ›´æ–°å°è½¦å½“å‰çš„è¡Œé©¶è·ç¦»=(å‘¨æœŸå†…ç´¯è®¡è„‰å†²/((è½¦è½®èµ°ä¸€åœˆäº§ç”Ÿçš„è„‰å†²æ•°)*(è½¦è½®å‘¨é•¿)))
 		Param.Distance_Motor1Curret=Param.Sigma_Motor1Pluse/((RESOLUTION_TOTAL*REDUCTION_RATIO)*(2*3.14*WHEEL_R));
-		//4.Ñ²Ïß»·£¬»ñÈ¡openMVÑ²Ïß¶ÔÓ¦µÄÇé¿ö²úÉúµÄ¶ÔÓ¦Êä³öÖµLine_TempOut
+		//4.å·¡çº¿ç¯ï¼Œè·å–openMVå·¡çº¿å¯¹åº”çš„æƒ…å†µäº§ç”Ÿçš„å¯¹åº”è¾“å‡ºå€¼Line_TempOut
 		/*
-		ÎªÁË±ãÓÚÉÏÏÂÎÄÀí½â£¬ÏÈÔ¤Ïë³ö¸÷ÖÖÇé¿öµÄ¶ÔÓ¦·½°¸
-		Ö±Ïß-Line_TempOut=0;
-		×ó×ª-Line_TempOut=1800;
-		ÓÒ×ª-Line_TempOut=-1800;
+		ä¸ºäº†ä¾¿äºä¸Šä¸‹æ–‡ç†è§£ï¼Œå…ˆé¢„æƒ³å‡ºå„ç§æƒ…å†µçš„å¯¹åº”æ–¹æ¡ˆ
+		ç›´çº¿-Line_TempOut=0;
+		å·¦è½¬-Line_TempOut=1800;
+		å³è½¬-Line_TempOut=-1800;
 		*/
 	
-		//5.ÅĞ¶ÏÊÇ·ñ¿ªÆôÑ²Ïß¹¦ÄÜ
+		//5.åˆ¤æ–­æ˜¯å¦å¼€å¯å·¡çº¿åŠŸèƒ½
 
-		  //ÅĞ¶ÏÊÇ·ñµ½ÁËÄ¿±ê¾àÀëµÄ×îĞ¡ãĞÖµ£¬µ½´ï¼´¿ªÊ¼Í£³µ
+		  //åˆ¤æ–­æ˜¯å¦åˆ°äº†ç›®æ ‡è·ç¦»çš„æœ€å°é˜ˆå€¼ï¼Œåˆ°è¾¾å³å¼€å§‹åœè½¦
 			if((Param.Distance_Motor1Curret<=Param.Distance_TargetThreshold+CAR_LENGTH)&&(Param.Distance_Motor1Curret>=Param.Distance_TargetThreshold-CAR_LENGTH))
 			{
 			  if(++stop_time_cnt==200)//2S
@@ -187,14 +187,14 @@ void TIM3_IRQHandler(void)
 			  stop_time_cnt=0;
 				Flag.Stop_Car=0;
 			}
-			//ÅĞ¶Ïµç»úÊÇ·ñÆô¶¯
+			//åˆ¤æ–­ç”µæœºæ˜¯å¦å¯åŠ¨
 			if(Flag.Is_EnMOTOR==1)
 			{
 			  LocationRing_VelocityRing_Control();
-				//½â¾ö³µÎ´×ßÖ±Ïß»òÕß´ò»¬µÄÇé¿öµ¼ÖÂµÄÁ©ÂÖÀÛ¼ÆÂö³åÊı²»ÏàµÈµÄÇé¿ö
+				//è§£å†³è½¦æœªèµ°ç›´çº¿æˆ–è€…æ‰“æ»‘çš„æƒ…å†µå¯¼è‡´çš„ä¿©è½®ç´¯è®¡è„‰å†²æ•°ä¸ç›¸ç­‰çš„æƒ…å†µ
 
 			
-			//Ñ²Ïß²¹³¥
+			//å·¡çº¿è¡¥å¿
 			Param.Motor1_PWM=PID.Velocity_Out;
 			Param.Motor2_PWM=PID.Velocity_Out;
 			
@@ -206,10 +206,10 @@ void TIM3_IRQHandler(void)
 				OLED_ShowNum(3,1,Param.Motor1_PWM,5);
 				OLED_ShowNum(4,1,Param.Sigma_Motor1Pluse,5);
 				
-		//6.ÅĞ¶ÏÊÇ·ñ¿ªÆô×ªÍä¹¦ÄÜ
+		//6.åˆ¤æ–­æ˜¯å¦å¼€å¯è½¬å¼¯åŠŸèƒ½
 //		if(Flag.Start_Spin==1)
 //		{
-//		  //ÅĞ¶ÏÊÇ·ñÆô¶¯µç»ú
+//		  //åˆ¤æ–­æ˜¯å¦å¯åŠ¨ç”µæœº
 //			if(Flag.Is_EnMOTOR==1)
 //			{
 //			  LocationRing_VelocityRing_Control();
