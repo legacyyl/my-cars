@@ -1,5 +1,7 @@
 #include "usart1.h"
 #if 1
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#define GETCHAR_PROTOTYPE int __io_getchar(void)
 #pragma import(__use_no_semihosting)
 //标准库需要的支持函数
 struct __FILE
@@ -15,11 +17,24 @@ void _sys_exit(int x)
     x = x;
 }
 //重定义fputc函数
-int fputc(int ch, FILE *f)
+PUTCHAR_PROTOTYPE
 {
-    while((USART1->SR&0X40)==0);
-    USART1->DR=(u8)ch;
-    return ch;
+    /* 发送一个字节数据到串口 */
+    USART_SendData(  USART1, (uint8_t) ch);
+
+    /* 等待发送完毕 */
+    while (USART_GetFlagStatus(  USART1, USART_FLAG_TXE) == RESET);
+
+    return (ch);
+}
+
+///重定向c库函数scanf到串口，重写向后可使用scanf、getchar等函数
+GETCHAR_PROTOTYPE
+{
+    /* 等待串口输入数据 */
+    while (USART_GetFlagStatus(  USART1, USART_FLAG_RXNE) == RESET);
+
+    return (int)USART_ReceiveData(  USART1);
 }
 #endif
 
