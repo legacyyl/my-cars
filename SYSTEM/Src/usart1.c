@@ -69,16 +69,17 @@ void Usart_Init(void)
     USART_Init(USART_X,&USART_InitStructure);
 
     //开启串口中断
-    USART_ITConfig(USART_X,USART_IT_RXNE,ENABLE);//打开接受中断
+    USART_ITConfig(USART_X,USART_IT_RXNE,ENABLE);
     //配置中断组
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
     //配置中断
     NVIC_InitTypeDef NVIC_InitStructure;
     NVIC_InitStructure.NVIC_IRQChannel=USART_IRQn;
     NVIC_InitStructure.NVIC_IRQChannelCmd=ENABLE;
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=1;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=0;
     NVIC_InitStructure.NVIC_IRQChannelSubPriority=1;
     NVIC_Init(&NVIC_InitStructure);
+
 
     USART_Cmd(USART_X,ENABLE);
     USART_ClearFlag(USART_X,USART_FLAG_TC);//清楚串口发送标志位

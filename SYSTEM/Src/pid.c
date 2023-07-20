@@ -28,7 +28,7 @@ void  PID_Param_Init(void)
   /*位置环的PID*/
 	PID.Location_Target_Val=0.0;
 	PID.Location_Actual_Val=0.0;
-	PID.Location_Kp=0.24;
+	PID.Location_Kp=0.0;
 	PID.Location_Ki=0.0;
 	PID.Location_Kd=0.0;
 	PID.Location_Integral=0.0;
@@ -39,8 +39,8 @@ void  PID_Param_Init(void)
 	/*速度环的PID*/
 	PID.Velocity_Target_Val=0.0;
 	PID.Velocity_Actual_Val=0.0;
-	PID.Velocity_Kp=5.0;
-	PID.Velocity_Ki=2.4;
+	PID.Velocity_Kp=0.0;
+	PID.Velocity_Ki=0.0;
 	PID.Velocity_Kd=0.0;
 	PID.Velocity_Integral=0.0;
 	PID.Velocity_Error=0.0;
@@ -48,12 +48,7 @@ void  PID_Param_Init(void)
 	PID.Velocity_Out=0;
 }
 
-/**
- * 函数名:LocationRing_PID_Realize
- * 描述:位置环PID的实现
- * 输入:Location_Actual_Val:测量到的实际值
- * 输出:位置环PID的输出值
- */
+
 float LocationRing_PID_Realize(float Location_Actual_Val)
 { 
   //1.计算偏差
@@ -68,12 +63,6 @@ float LocationRing_PID_Realize(float Location_Actual_Val)
 	return PID.Location_Actual_Val;  
 }
 
-/**
- * 函数名:LocationRing_PID_Realize
- * 描述:速度环PID的实现
- * 输入:Location_Actual_Val:测量到的实际值
- * 输出:速度环PID的输出值
- */
 float VelocityRing_PID_Realize(float Velocity_Actual_Val)
 { 
   //1.计算偏差
@@ -95,4 +84,3 @@ float VelocityRing_PID_Realize(float Velocity_Actual_Val)
 	return PID.Velocity_Actual_Val;  
 }
 
-/*****************************************************END OF FILE*********************************************************/	

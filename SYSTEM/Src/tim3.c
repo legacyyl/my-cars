@@ -1,28 +1,9 @@
 
-/**
-  *************************************************************************************************************************
-  * @file    tim3.c
-  * @author  amkl
-  * @version V1.0
-  * @date    2022-09-22
-  * @brief   tim3定时器模块.c文件配置
-  *************************************************************************************************************************
-  * @attention
-  *
-  *
-  *************************************************************************************************************************
-  */
 
-/* Includes -------------------------------------------------------------------------------------------------------------*/
 #include "tim3.h"
 /* 定义 -----------------------------------------------------------------------------------------------------------------*/
 
-/**
- * 函数名:Tim3_Init
- * 描述:定时-10ms
- * 输入:无
- * 输出:无
- */
+
 void Tim3_Init(void)
 {
   NVIC_InitTypeDef 					NVIC_InitStructure;
@@ -32,8 +13,8 @@ void Tim3_Init(void)
 	
 	NVIC_InitStructure.NVIC_IRQChannel=TIM3_IRQn;
 	NVIC_InitStructure.NVIC_IRQChannelCmd=ENABLE;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=1;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority=1;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=0;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority=0;
 	NVIC_Init(&NVIC_InitStructure);
 	
 	TIM_TimeBaseInitStructure.TIM_Prescaler=72-1;

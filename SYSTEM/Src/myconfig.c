@@ -1,30 +1,10 @@
-/**
-  *************************************************************************************************************************
-  * @file    myconfig.c
-  * @author  AMKL
-  * @version V1.0
-  * @date    2022-09-22
-  * @brief   STM32F103C8T6  
-  *************************************************************************************************************************
-  * @attention
-  *
-  *
-  *************************************************************************************************************************
-  */
 
-/* Includes -------------------------------------------------------------------------------------------------------------*/
 #include "myconfig.h"
 
-/* 定义 -----------------------------------------------------------------------------------------------------------------*/
+
 Param_InitTypeDef Param;
 Flag_InitTypeDef  Flag;
 
-/**
- * 函数名:LocationRing_Out
- * 描述:位置环的输出函数
- * 输入:无
- * 输出:速度环的期望值
- */
 float LocationRing_Out(void)
 {
  float ExpectVelocity=0.0;
@@ -49,7 +29,7 @@ float VelocityRing_Out(void)
   float EcpectPWM=0.0;
 
 	
-	PID.Velocity_Actual_Val=(Param.UnitTime_Motor1Pluse*225)/(RESOLUTION_TOTAL*REDUCTION_RATIO*PID_COMPUTATION_PERIOD*1000*60);//将读取到的单位时间内的脉冲数转为单位为rpm
+	PID.Velocity_Actual_Val=(Param.UnitTime_Motor1Pluse)*1000*60/1560;//将读取到的单位时间内的脉冲数转为单位为rpm
 	
 	EcpectPWM=VelocityRing_PID_Realize(PID.Velocity_Actual_Val);//得到了期望速度
 	
@@ -144,87 +124,27 @@ void Car_Spin(SpinDIR_Choose Direction)
  */
 void TIM3_IRQHandler(void)
 {
-	uint8_t stop_time_cnt,spin_time_cnt;
-	long    average_pluse;
+
   if(TIM_GetITStatus(TIM3,TIM_IT_Update)!=RESET)
-	{
-	  TIM_ClearITPendingBit(TIM3,TIM_IT_Update);
-		
-		//1.获取单位时间内脉冲数
-		Param.UnitTime_Motor1Pluse = -Read_Pluse(2);
-		Param.UnitTime_Motor2Pluse = Read_Pluse(4);
-		
-		//2.更新累计脉冲数
-		Param.Sigma_Motor1Pluse+=Param.UnitTime_Motor1Pluse;
-		Param.Sigma_Motor2Pluse+=Param.UnitTime_Motor2Pluse;
-		
-		//3.更新小车当前的行驶距离=(周期内累计脉冲/((车轮走一圈产生的脉冲数)*(车轮周长)))
-		Param.Distance_Motor1Curret=Param.Sigma_Motor1Pluse/((RESOLUTION_TOTAL*REDUCTION_RATIO)*(2*3.14*WHEEL_R));
-		//4.巡线环，获取openMV巡线对应的情况产生的对应输出值Line_TempOut
-		/*
-		为了便于上下文理解，先预想出各种情况的对应方案
-		直线-Line_TempOut=0;
-		左转-Line_TempOut=1800;
-		右转-Line_TempOut=-1800;
-		*/
-	
-		//5.判断是否开启巡线功能
+  {
+      TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
+      //1.获取单位时间内脉冲数
+      Param.UnitTime_Motor1Pluse = -Read_Pluse(2);
+      Param.UnitTime_Motor2Pluse = Read_Pluse(4);
+      //2.更新累计脉冲数
+      Param.Sigma_Motor1Pluse += Param.UnitTime_Motor1Pluse;
+      Param.Sigma_Motor2Pluse += Param.UnitTime_Motor2Pluse;
 
-		  //判断是否到了目标距离的最小阈值，到达即开始停车
-			if((Param.Distance_Motor1Curret<=Param.Distance_TargetThreshold+CAR_LENGTH)&&(Param.Distance_Motor1Curret>=Param.Distance_TargetThreshold-CAR_LENGTH))
-			{
-			  if(++stop_time_cnt==200)//2S
-				{
-				  stop_time_cnt=0;
-					Flag.Start_Line=0;
-					Flag.Stop_Car=1;
-					Load_Motor_PWM(0,0);
-					set_motor_disable();
-				}
-			}
-			else
-			{
-			  stop_time_cnt=0;
-				Flag.Stop_Car=0;
-			}
-			//判断电机是否启动
-			if(Flag.Is_EnMOTOR==1)
-			{
-			  LocationRing_VelocityRing_Control();
-				//解决车未走直线或者打滑的情况导致的俩轮累计脉冲数不相等的情况
+      PID.Velocity_Out =(int) VelocityRing_Out();
 
-			
-			//巡线补偿
-			Param.Motor1_PWM=PID.Velocity_Out;
-			Param.Motor2_PWM=PID.Velocity_Out;
-			
-//			(Param.Motor1_PWM>0)?Motor_Left_DIR(FORWARD):Motor_Left_DIR(BACK);
-//			(Param.Motor2_PWM>0)?Motor_Right_DIR(FORWARD):Motor_Right_DIR(BACK);
-			
-			Load_Motor_PWM(Param.Motor1_PWM,Param.Motor2_PWM);
-			OLED_ShowNum(2,1,Param.Distance_Motor1Curret,5);
-				OLED_ShowNum(3,1,Param.Motor1_PWM,5);
-				OLED_ShowNum(4,1,Param.Sigma_Motor1Pluse,5);
-				
-		//6.判断是否开启转弯功能
-//		if(Flag.Start_Spin==1)
-//		{
-//		  //判断是否启动电机
-//			if(Flag.Is_EnMOTOR==1)
-//			{
-//			  LocationRing_VelocityRing_Control();
-//				Param.Motor1_PWM=PID.Velocity_Out;
-//				Param.Motor2_PWM=PID.Velocity_Out;
-//			}
-//			if(++spin_time_cnt==200)
-//			{
-//			  spin_time_cnt=0;
-//				Flag.Start_Spin=0;
-//				Flag.Success_Spin=1;
-//				Param.Motor1_PWM=0;
-//				Param.Motor2_PWM=0;
-//			}
-//			Load_Motor_PWM(Param.Motor1_PWM,Param.Motor2_PWM);
-//		}		
-	}}
+      Param.Motor1_PWM = PID.Velocity_Out;
+      Param.Motor2_PWM = PID.Velocity_Out;
+      OLED_ShowNum(4,2,Param.UnitTime_Motor1Pluse,3);
+      if(Param.Motor1_PWM==0)
+      {
+
+          Motor_Left_DIR(STOP);
+      }
+      TIM_SetCompare1(TIM1,   Param.Motor1_PWM);
+  }
 }

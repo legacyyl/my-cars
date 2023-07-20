@@ -1,17 +1,3 @@
-/**
-  *************************************************************************************************************************
-  * @file    myconfig.h
-  * @author  AMKL
-  * @version V1.0
-  * @date    2022-09-22
-  * @brief   STM32F103C8T6
-  *************************************************************************************************************************
-  * @attention
-  * 
-  * 
-  * 
-  *************************************************************************************************************************
-  */
 
 
 /* Define to prevent recursive inclusion --------------------------------------------------------------------------------*/
@@ -65,8 +51,8 @@ typedef struct
 {
   long    Sigma_Motor1Pluse;
 	long    Sigma_Motor2Pluse;
-	short   UnitTime_Motor1Pluse;
-	short   UnitTime_Motor2Pluse;
+	int   UnitTime_Motor1Pluse;
+	int   UnitTime_Motor2Pluse;
 	float   Distance_Motor1Curret;
 	float   Distance_Motor2Curret;
 	float   Distance_TargetThreshold;

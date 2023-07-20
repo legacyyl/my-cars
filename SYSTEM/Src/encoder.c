@@ -93,7 +93,7 @@ int Read_Pluse(int Timx)
 	{
 	  case 2:value=(short)TIM_GetCounter(TIM2);TIM_SetCounter(TIM2,0); break;
 		case 4:value=(short)TIM_GetCounter(TIM4);TIM_SetCounter(TIM4,0);break;
-		default:value=0;
+		default:break;
 	}
 	return value;
 }
@@ -113,12 +113,6 @@ void TIM2_IRQHandler(void)
  }
 }
 
-/**
- * 函数名:TIM4_IRQHandler
- * 描述:定时器4中断服务函数
- * 输入:无
- * 输出:无
- */
 void TIM4_IRQHandler(void)
 {
  if(TIM_GetITStatus(TIM4,TIM_IT_Update)!=RESET)

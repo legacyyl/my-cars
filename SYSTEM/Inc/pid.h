@@ -42,7 +42,7 @@ typedef struct
 	float Velocity_Integral;//速度环的积分项
 	float Velocity_Target_Val;//速度环的期望值
 	float Velocity_Actual_Val;//速度环的实际值
-	int   Velocity_Out;//速度环的输出
+	int  Velocity_Out;//速度环的输出
 	
 }PID_InitTypedef;
 
