@@ -135,16 +135,21 @@ void TIM3_IRQHandler(void)
       Param.Sigma_Motor1Pluse += Param.UnitTime_Motor1Pluse;
       Param.Sigma_Motor2Pluse += Param.UnitTime_Motor2Pluse;
 
-      PID.Velocity_Out =(int) VelocityRing_Out();
+      PID.Velocity_Out = VelocityRing_Out();
 
       Param.Motor1_PWM = PID.Velocity_Out;
       Param.Motor2_PWM = PID.Velocity_Out;
-      OLED_ShowNum(4,2,Param.UnitTime_Motor1Pluse,3);
-      if(Param.Motor1_PWM==0)
+      if( Param.Motor1_PWM ==0)
       {
 
           Motor_Left_DIR(STOP);
       }
-      TIM_SetCompare1(TIM1,   Param.Motor1_PWM);
+      else
+      {
+          Motor_Left_DIR(FORWARD);
+      }
+      Load_Motor_PWM(Param.Motor1_PWM,Param.Motor1_PWM);
+      OLED_ShowNum(1,1,Param.Motor1_xfPWM,5);
+
   }
 }

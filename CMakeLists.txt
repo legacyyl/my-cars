@@ -19,9 +19,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 11)
 
 #Uncomment for hardware floating point
-#add_compile_definitions(ARM_MATH_CM4;ARM_MATH_MATRIX_CHECK;ARM_MATH_ROUNDING)
-#add_compile_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
-#add_link_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
+add_compile_definitions(ARM_MATH_CM4;ARM_MATH_MATRIX_CHECK;ARM_MATH_ROUNDING)
+add_compile_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
+add_link_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
 
 #Uncomment for software floating point
 #add_compile_options(-mfloat-abi=soft)
@@ -53,8 +53,8 @@ endif ()
 
 add_definitions(-DUSE_HAL_DRIVER -DSTM32F103xB)
 
-file(GLOB_RECURSE SOURCES "startup/*.*" "Core/*.*" "SYSTEM/*.*" "Users/*.*" "STM32F10x_FWLib/*.*")
-include_directories(Core/Inc STM32F10x_FWLib/Inc SYSTEM/Inc Users/Inc)
+file(GLOB_RECURSE SOURCES "startup/*.*" "Core/*.*" "SYSTEM/*.*" "Users/*.*" "STM32F10x_FWLib/*.*" "FreeRTOS/*.*")
+include_directories(Core/Inc STM32F10x_FWLib/Inc SYSTEM/Inc Users/Inc FreeRTOS/Source/include FreeRTOS/Source/portable/GCC/ARM_CM3)
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F103C8Tx_FLASH.ld)
 
 add_link_options(-Wl,-gc-sections,--print-memory-usage,-Map=${PROJECT_BINARY_DIR}/${PROJECT_NAME}.map)

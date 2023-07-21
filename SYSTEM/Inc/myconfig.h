@@ -61,6 +61,8 @@ typedef struct
 	uint8_t  Send_Step;
 	uint8_t  Back_Step;
 	uint16_t Line_TempOut;
+    uint16_t Motor1_xfPWM;
+    uint16_t Motor2_xfPWM;
 }Param_InitTypeDef;
 
 typedef struct
