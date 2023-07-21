@@ -1,3 +1,0 @@
-D:/Workspace/my-cars/cmake-build-debug/CMakeFiles/MYCAR-CLION.elf.dir
-D:/Workspace/my-cars/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/Workspace/my-cars/cmake-build-debug/CMakeFiles/rebuild_cache.dir
